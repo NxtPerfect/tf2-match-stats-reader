@@ -1,0 +1,3 @@
+- [ ] Change images to grayscale
+- [ ] read stats text
+- [ ] append to csv file
