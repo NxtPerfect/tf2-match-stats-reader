@@ -14,6 +14,17 @@ def preprocess_image(image):
     
     # Convert to grayscale
     gray = cv2.cvtColor(bottom_section, cv2.COLOR_BGR2GRAY)
+
+    # Performing OTSU threshold
+    ret, thresh1 = cv2.threshold(gray, 0, 255, cv2.THRESH_OTSU | cv2.THRESH_BINARY_INV)
+
+    # Applying dilation on the threshold image
+    rect_kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (18, 18))
+    dilation = cv2.dilate(thresh1, rect_kernel, iterations = 1)
+
+    # # Finding contours
+    # contours, hierarchy = cv2.findContours(dilation, cv2.RETR_EXTERNAL, 
+    #                                              cv2.CHAIN_APPROX_NONE)
     
     # Apply very mild Gaussian blur to reduce noise
     blurred = cv2.GaussianBlur(gray, (3, 3), 0)
